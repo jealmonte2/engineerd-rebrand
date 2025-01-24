@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import IntroAnimation from "./components/IntroAnimation"
+import LandingPage from "./components/LandingPage"
+import "@fontsource/poppins/500.css"
+import "@fontsource/poppins/300.css"
+import "@fontsource/poppins/200.css"
+import "@fontsource/poppins/100.css"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showLanding, setShowLanding] = useState(false)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="min-h-screen w-full">
+      <AnimatePresence mode="wait">
+        {!showLanding ? (
+          <motion.div
+            key="intro"
+            exit={{ opacity: 0 }}
+            className="min-h-screen w-full flex flex-col items-center justify-center"
+          >
+            <IntroAnimation onComplete={() => setShowLanding(true)} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="landing"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-full"
+          >
+            <LandingPage />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
