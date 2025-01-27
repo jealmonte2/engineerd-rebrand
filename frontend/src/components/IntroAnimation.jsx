@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { motion, useMotionValue } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import styles from "./IntroAnimation.module.css"
@@ -20,9 +20,9 @@ const LETTERS = [
       className: styles.letterLarge,
     },
     {
-      src: LetterN,
-      alt: "N",
-      className: styles.letterN,
+      src: LetterE,
+      alt: "E",
+      className: styles.letterLarge,
     },
     {
       src: LetterN,
@@ -67,29 +67,67 @@ const LETTERS = [
 ]
 
 const IntroAnimation = ({ onComplete }) => {
-    const [visibleLetters, setVisibleLetters] = useState([])
-    const [showGear, setShowGear] = useState(false)
-    const [showChevron, setShowChevron] = useState(false)
-    const [isAnimationComplete, setIsAnimationComplete] = useState(false)
-    const [showSlogan, setShowSlogan] = useState(false)
-    const [cursorPosition, setCursorPosition] = useState(0)
-  
-    useEffect(() => {
+  const [visibleLetters, setVisibleLetters] = useState([])
+  const [showGear, setShowGear] = useState(false)
+  const [showChevron, setShowChevron] = useState(false)
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false)
+  const [showSlogan, setShowSlogan] = useState(false)
+  const [cursorPosition, setCursorPosition] = useState(0)
+  const animationRef = useRef({ intervalId: null })
+
+  useEffect(() => {
       let currentIndex = 0
-      const typingInterval = setInterval(() => {
-        if (currentIndex < LETTERS.length) {
-          setVisibleLetters((prev) => [...prev, LETTERS[currentIndex]])
-          setCursorPosition((prev) => prev + (currentIndex === 0 ? 0 : 30))
-          currentIndex++
-        } else {
-          clearInterval(typingInterval)
-          setShowGear(true)
-          setTimeout(() => setShowSlogan(true), 2000)
-        }
+      // Clear any existing animation state
+      setVisibleLetters([])
+      setShowGear(false)
+      setShowChevron(false)
+      setIsAnimationComplete(false)
+      setShowSlogan(false)
+      setCursorPosition(0)
+
+      animationRef.current.intervalId = setInterval(() => {
+          if (currentIndex < LETTERS.length) {
+              setVisibleLetters(prev => [...prev, LETTERS[currentIndex]])
+              setCursorPosition(prev => prev + (currentIndex === 0 ? 0 : 30))
+              currentIndex++
+          } else {
+              clearInterval(animationRef.current.intervalId)
+              setShowGear(true)
+              setTimeout(() => setShowSlogan(true), 2000)
+          }
       }, 150)
-  
-      return () => clearInterval(typingInterval)
-    }, [])
+
+      return () => {
+          if (animationRef.current.intervalId) {
+              clearInterval(animationRef.current.intervalId)
+          }
+      }
+  }, [])
+
+  // Add scroll and keyboard handlers
+  useEffect(() => {
+      const handleScroll = (event) => {
+          if (showChevron && event.deltaY > 0) {
+              event.preventDefault()
+              onComplete()
+          }
+      }
+
+      const handleKeyDown = (event) => {
+          if (showChevron && event.key === 'ArrowDown') {
+              event.preventDefault()
+              onComplete()
+          }
+      }
+
+      window.addEventListener('wheel', handleScroll, { passive: false })
+      window.addEventListener('keydown', handleKeyDown)
+
+      return () => {
+          window.removeEventListener('wheel', handleScroll)
+          window.removeEventListener('keydown', handleKeyDown)
+      }
+  }, [showChevron, onComplete])
   
     return (
       <div className={`${styles.container} ${isAnimationComplete ? styles.containerCompleted : ""}`}>
@@ -97,23 +135,24 @@ const IntroAnimation = ({ onComplete }) => {
           <div className={styles.logoContainer}>
             <div className={styles.letters}>
               {showGear && (
-                <motion.img
+                  <motion.img
                   src={LogoGear}
                   alt="Gear"
                   className={styles.gear}
                   initial={{ 
                     opacity: 0, 
                     x: "-100%", 
-                    rotate: -180 
+                    rotate: 0 
                   }}
                   animate={{ 
                     opacity: 1, 
                     x: 0, 
-                    rotate: 180 
+                    rotate: 360 
                   }}
                   transition={{
                     duration: 1.2,
                     opacity: { duration: 0.3 },
+                    x: { duration: 1.2 },
                     rotate: { 
                       duration: 1.2,
                       ease: "linear" 

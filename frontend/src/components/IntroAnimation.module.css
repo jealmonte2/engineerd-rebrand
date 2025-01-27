@@ -22,12 +22,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 30px;
   }
   
   .logoContainer {
     display: flex;
     align-items: flex-end;
     position:relative;
+    transform: translateX(30px);
   }
   
   .letters {
@@ -71,6 +73,7 @@
     bottom: 5px;
     width: 55px; 
     height: 55px; 
+    transform: translateX(-30px);
   }
   
   .chevronContainer {
