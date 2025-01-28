@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import { motion, useMotionValue } from "framer-motion"
 import { ChevronDown } from "lucide-react"
-import styles from "./IntroAnimation.module.css"
+import styles from "../styles/IntroAnimation.module.css"
 import LetterE from '../assets/EngineeRDLetters/LetterE.png'
 import LetterN from '../assets/EngineeRDLetters/LetterN.png'
 import LetterG from '../assets/EngineeRDLetters/LetterG.png'
