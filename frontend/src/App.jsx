@@ -15,7 +15,7 @@ function App() {
   const [showMain, setShowMain] = useState(false)
 
   return (
-    <div className="min-h-screen w-full overflow-hidden">
+    <div className="min-h-screen w-full overflow-hidden overflow-y-hidden">
       <AnimatePresence mode="wait">
         {!showMain ? (
           <motion.div

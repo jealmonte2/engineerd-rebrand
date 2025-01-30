@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react"
 import "../styles/LavaLamp.css"
 import CollapsibleSections from "./CollapsibleSections.jsx"
+import Testimonials from "./Testimonials"
 
 export default function NewLandingPage() {
   const sections = useRef([])
   const blobsRef = useRef([])
+  const whyChooseRef = useRef(null)
 
   useEffect(() => {
     const container = document.querySelector(".scroll-container")
@@ -42,9 +44,31 @@ export default function NewLandingPage() {
     const interval = setInterval(animateBlobs, 3000)
     animateBlobs()
 
+    // Intersection Observer for Why Choose Us section
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll(".why-choose-item").forEach((item, index) => {
+              item.style.animationDelay = `${0.1 * (index + 1)}s`
+              item.style.animationPlayState = "running"
+            })
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    if (whyChooseRef.current) {
+      observer.observe(whyChooseRef.current)
+    }
+
     return () => {
       container.removeEventListener("wheel", handleScroll)
       clearInterval(interval)
+      if (whyChooseRef.current) {
+        observer.unobserve(whyChooseRef.current)
+      }
     }
   }, [])
 
@@ -89,7 +113,7 @@ export default function NewLandingPage() {
       <nav className="nav">
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
-          alt="EngineRD Logo"
+          alt="EngineeRD Logo"
           className="nav-logo"
         />
         <div className="nav-links">
@@ -109,7 +133,7 @@ export default function NewLandingPage() {
         <div className="container">
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
-            alt="EngineRD Logo Large"
+            alt="EngineeRD Logo Large"
             className="logo-large"
           />
           <p>Think big. Transform data to wisdom.</p>
@@ -232,6 +256,77 @@ export default function NewLandingPage() {
             </div>
           </div>
           <CollapsibleSections />
+        </div>
+      </section>
+
+      <section ref={(el) => (sections.current[4] = el)} className="section">
+        <div className="container">
+          <div className="why-choose-and-testimonials">
+            <div className="why-choose-section" ref={whyChooseRef}>
+              <h2 className="section-title">Why Choose Us?</h2>
+              <div className="why-choose-grid">
+                <div
+                  className="why-choose-item"
+                  style={{
+                    "--bg-image": `url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1hOm1Jjyf0RDnzkniu9qAqutfEMtez.png)`,
+                  }}
+                >
+                  <div className="item-content">
+                    <span className="item-number">01</span>
+                    <h3 className="item-title">Public Sector Experience</h3>
+                    <p className="item-description">
+                      Two decades of government experience, with comprehensive knowledge of the DoD ecosystem and
+                      operations.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="why-choose-item"
+                  style={{
+                    "--bg-image": `url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-yZlJcR66z7HwHnOWfpFlyLjROdCK2L.png)`,
+                  }}
+                >
+                  <div className="item-content">
+                    <span className="item-number">02</span>
+                    <h3 className="item-title">Modernizing Work</h3>
+                    <p className="item-description">
+                      Optimizing legacy systems and implementing AI-driven solutions to enhance efficiency and reduce
+                      costs.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="why-choose-item"
+                  style={{
+                    "--bg-image": `url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-zH0CBkV6zptc0z9Ya68vWXUAof60uO.png)`,
+                  }}
+                >
+                  <div className="item-content">
+                    <span className="item-number">03</span>
+                    <h3 className="item-title">Re-Imagining Healthcare</h3>
+                    <p className="item-description">
+                      Using data analytics, AI, and secure systems to improve care delivery and support public health.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="why-choose-item"
+                  style={{
+                    "--bg-image": `url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GpaRpEvg1asEFO7Wb5V6uvWK802cab.png)`,
+                  }}
+                >
+                  <div className="item-content">
+                    <span className="item-number">04</span>
+                    <h3 className="item-title">Forensic Methodology</h3>
+                    <p className="item-description">
+                      Applying systematic, evidence-based analysis to reveal hidden patterns and transform operations.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Testimonials />
+          </div>
         </div>
       </section>
     </div>
