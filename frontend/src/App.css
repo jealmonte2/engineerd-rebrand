@@ -10,11 +10,11 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100%;
+html,
+body {
+  overflow-y: auto;
 }
+
 
 section {
   scroll-snap-align: start;
