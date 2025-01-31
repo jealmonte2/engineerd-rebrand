@@ -54,7 +54,6 @@ export default function NewLandingPage() {
     const interval = setInterval(animateBlobs, 3000)
     animateBlobs()
 
-    // Intersection Observer for Why Choose Us section
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

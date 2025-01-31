@@ -47,7 +47,6 @@ body {
   padding: 2rem;
 }
 
-/* Navigation */
 .nav {
   position: fixed;
   top: 0;
@@ -82,7 +81,6 @@ body {
   color: #96282e;
 }
 
-/* Logo Section */
 .logo-section {
   text-align: center;
   position: relative;
@@ -112,7 +110,6 @@ body {
   white-space: nowrap;
 }
 
-/* Content Section */
 .content-section {
   font-size: 22px;
   line-height: 1.6;
@@ -121,7 +118,6 @@ body {
   text-align: left;
 }
 
-/* Industries Section */
 .section-title {
   font-size: 32px;
   font-weight: 600;
@@ -141,7 +137,6 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Button Styles */
 .action-button {
   display: inline-block;
   background: none;
@@ -182,7 +177,6 @@ body {
   margin-top: 1.25rem;
 }
 
-/* Partners Section */
 .partners-section {
   padding: 1rem 0;
   margin-bottom: 1rem;
@@ -315,7 +309,6 @@ body {
   line-height: 1.4;
 }
 
-/* Why Choose Us and Testimonials Section */
 .why-choose-and-testimonials {
   display: flex;
   gap: 2rem;
@@ -426,7 +419,6 @@ body {
   }
 }
 
-/* Lava Lamp Effect */
 .lava-background {
   position: fixed;
   top: 0;
@@ -465,7 +457,6 @@ body {
   box-shadow: 0 0 60px 20px rgba(77, 128, 228, 0.4);
 }
 
-/* Animations */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -485,7 +476,6 @@ body {
   }
 }
 
-/* Accordion Styles */
 .accordion-section {
   margin-top: 1rem;
   width: 100%;

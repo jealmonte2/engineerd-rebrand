@@ -104,7 +104,6 @@ const IntroAnimation = ({ onComplete }) => {
       }
   }, [])
 
-  // Add scroll and keyboard handlers
   useEffect(() => {
       const handleScroll = (event) => {
           if (showChevron && event.deltaY > 0) {
