@@ -16,7 +16,6 @@ body {
 .scroll-container {
   height: 100vh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
   position: relative;
 }
 
@@ -29,6 +28,16 @@ body {
   flex-direction: column;
   justify-content: center;
   overflow-y: auto;
+}
+
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+}
+
+.footer-section {
+  min-height: auto;
+  height: auto;
+  scroll-snap-align: none;
 }
 
 .container {

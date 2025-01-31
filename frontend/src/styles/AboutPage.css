@@ -42,19 +42,19 @@
   .about-scroll-container {
     height: 100vh;
     overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    position: relative;
+    scroll-snap-type: y proximity; /* Changed from mandatory for smoother behavior */
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px; /* Account for nav bar */
   }
   
   .about-section {
     min-height: 100vh;
-    height: 100vh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
   }
   
   .about-content {
@@ -196,4 +196,12 @@
     .team-grid {
       grid-template-columns: repeat(1, 1fr);
     }
+  }
+
+  .contact-section, 
+  .footer-wrapper {
+    min-height: auto;
+    height: auto;
+    scroll-snap-align: none;
+    padding-top: 60px;
   }

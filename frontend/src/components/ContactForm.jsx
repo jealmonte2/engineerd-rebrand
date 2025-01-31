@@ -29,24 +29,57 @@ const buttonStyle = {
 
 export default function ContactForm() {
   const [budget, setBudget] = useState(5000)
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    newsUpdates: false,
-    interests: "",
-    message: "",
-  })
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData, budget)
-  }
+  const [status, setStatus] = useState({ type: '', message: '' })
 
   const formatBudget = (value) => {
     if (value >= 20000) return ">$20,000"
     if (value <= 5000) return "<$5,000"
     return `$${value.toLocaleString()}`
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    // Form validation
+    const form = e.target
+    const requiredFields = form.querySelectorAll('[required]')
+    let isValid = true
+    
+    requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+        isValid = false
+        setStatus({ type: 'error', message: 'Please fill in all required fields' })
+      }
+    })
+
+    if (!isValid) return
+
+    const formData = new FormData(form)
+    const object = {}
+    formData.forEach((value, key) => object[key] = value)
+    const json = JSON.stringify(object)
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: json
+      })
+      
+      const result = await response.json()
+      if (result.success) {
+        setStatus({ type: 'success', message: 'Message sent successfully!' })
+        form.reset()
+        setBudget(5000)
+      } else {
+        setStatus({ type: 'error', message: 'Failed to send message. Please try again.' })
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: 'Failed to send message. Please try again.' })
+    }
   }
 
   return (
@@ -58,24 +91,39 @@ export default function ContactForm() {
           </h2>
           <p style={{ color: "white", fontSize: "1rem", maxWidth: "100%" }}>
             Feel free to contact us via email or fill out our contact form to discuss the details for your upcoming
-            event. We're excited to work with you and turn your ideas into an exceptional experience!
+            project. We're excited to work with you!
           </p>
         </div>
+
+        {status.message && (
+          <div style={{
+            padding: '1rem',
+            marginBottom: '1rem',
+            borderRadius: '4px',
+            textAlign: 'center',
+            backgroundColor: status.type === 'error' ? 'rgba(255, 0, 0, 0.1)' : 
+                          status.type === 'success' ? 'rgba(0, 255, 0, 0.1)' : 
+                          'transparent',
+            color: 'white'
+          }}>
+            {status.message}
+          </div>
+        )}
 
         <form
           onSubmit={handleSubmit}
           style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "100%" }}
         >
+          <input type="hidden" name="access_key" value="2b07d43f-7835-402f-9569-7397e85be4ff" />
+          <input type="hidden" name="subject" value="New Contact Form Submission" />
+
           <div style={{ display: "flex", gap: "20px" }}>
             <div style={{ flex: 1 }}>
-              <label htmlFor="firstName" style={labelStyle}>
-                First Name
-              </label>
+              <label htmlFor="firstName" style={labelStyle}>First Name</label>
               <input
                 id="firstName"
                 name="firstName"
                 style={inputStyle}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
               />
             </div>
             <div style={{ flex: 1 }}>
@@ -87,7 +135,6 @@ export default function ContactForm() {
                 name="lastName"
                 required
                 style={inputStyle}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
               />
             </div>
           </div>
@@ -102,7 +149,6 @@ export default function ContactForm() {
               type="email"
               required
               style={inputStyle}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
           </div>
 
@@ -110,12 +156,12 @@ export default function ContactForm() {
             <input
               type="checkbox"
               id="newsUpdates"
+              name="newsUpdates"
               style={{
                 accentColor: "white",
                 width: "16px",
                 height: "16px",
               }}
-              onChange={(e) => setFormData({ ...formData, newsUpdates: e.target.checked })}
             />
             <label htmlFor="newsUpdates" style={{ color: "#a0aec0" }}>
               Sign up for news and updates
@@ -131,7 +177,6 @@ export default function ContactForm() {
               name="interests"
               required
               style={inputStyle}
-              onChange={(e) => setFormData({ ...formData, interests: e.target.value })}
             />
           </div>
 
@@ -144,59 +189,33 @@ export default function ContactForm() {
               name="message"
               required
               style={{ ...inputStyle, minHeight: "120px", resize: "vertical" }}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             />
           </div>
 
           <div>
-            <label style={labelStyle}>Your Project Budget</label>
-            <div style={{ position: "relative", paddingTop: "24px" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-4px",
-                  left: `${((budget - 5000) / 15000) * 100}%`,
-                  transform: "translateX(-50%)",
-                  backgroundColor: "white",
-                  color: "black",
-                  padding: "4px 12px",
-                  borderRadius: "9999px",
-                  fontSize: "0.875rem",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {formatBudget(budget)}
-              </div>
-              <input
-                type="range"
-                min="5000"
-                max="20000"
-                step="100"
-                value={budget}
-                onChange={(e) => setBudget(Number(e.target.value))}
-                style={{
-                  width: "100%",
-                  accentColor: "white",
-                  background: "rgba(255, 255, 255, 0.2)",
-                  height: "2px",
-                  outline: "none",
-                  opacity: "0.7",
-                  transition: "opacity 0.2s",
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "8px",
-                  fontSize: "0.875rem",
-                  color: "#a0aec0",
-                }}
-              >
-                <span>{"<$5,000"}</span>
-                <span>{">$20,000"}</span>
-              </div>
-            </div>
+            <label style={labelStyle}>Project Budget: {formatBudget(budget)}</label>
+            <input
+              type="hidden"
+              name="budget"
+              value={formatBudget(budget)}
+            />
+            <input
+              type="range"
+              min="5000"
+              max="20000"
+              step="100"
+              value={budget}
+              onChange={(e) => setBudget(Number(e.target.value))}
+              style={{
+                width: "100%",
+                accentColor: "white",
+                background: "rgba(255, 255, 255, 0.2)",
+                height: "2px",
+                outline: "none",
+                opacity: "0.7",
+                transition: "opacity 0.2s",
+              }}
+            />
           </div>
 
           <button
@@ -218,4 +237,3 @@ export default function ContactForm() {
     </section>
   )
 }
-

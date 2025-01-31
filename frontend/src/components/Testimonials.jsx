@@ -11,29 +11,19 @@ const testimonials = [
   },
   {
     quote:
-      "The team's expertise in Microsoft solutions helped us streamline our operations and reduce costs significantly.",
-    author: "Michael Chen",
-    title: "CTO, Healthcare Solutions",
+      "Things are getting done far more efficiently, and with more autonomy. Also - we have eliminated 65% of our repetitive manual tasks!",
+    author: "James Marshall",
+    title: "Branch Chief DISA",
   },
   {
-    quote: "Their forensic methodology uncovered insights that transformed our decision-making process.",
-    author: "Amanda Rodriguez",
-    title: "Operations Director",
+    quote: "We don't waste hours and hours in long unproductive meetings! Our meetings have actual outcomes now.",
+    author: "Harry Wimbish",
+    title: "CEO ITellect",
   },
   {
-    quote: "EngineeRD's innovative approach to process improvement has revolutionized our workflow.",
-    author: "David Smith",
-    title: "CEO, Tech Innovations",
-  },
-  {
-    quote: "The level of detail in their analysis is unparalleled. It's been a game-changer for our organization.",
-    author: "Emily Watson",
-    title: "Head of Operations, Government Agency",
-  },
-  {
-    quote: "Their ability to adapt Microsoft solutions to our unique needs has greatly enhanced our productivity.",
-    author: "Robert Lee",
-    title: "IT Director, Education Sector",
+    quote: "Things are getting done far more efficiently, and with more autonomy. Also - we have eliminated 65% of our repetitive manual tasks!",
+    author: "Brian Ngac",
+    title: "PhD Digital Engineering | InfoSec Mgmt.",
   },
 ]
 

@@ -5,6 +5,12 @@ import CollapsibleSections from "./CollapsibleSections.jsx"
 import Testimonials from "./Testimonials"
 import ContactForm from "./ContactForm"
 import { ChevronDown } from "lucide-react"
+import Footer from "./Footer"
+import AWSLogo from "../assets/PartnerLogos/AWSLogo.png"
+import DISALogo from "../assets/PartnerLogos/DISALogo.png"
+import VAALogo from "../assets/PartnerLogos/VirginiaApexAccelLogo.png"
+import { motion } from "framer-motion"
+
 
 
 export default function NewLandingPage() {
@@ -126,15 +132,12 @@ export default function NewLandingPage() {
           <Link to="/about" className="nav-link">
             About
           </Link>
-          <a href="#services" className="nav-link">
-            Services
-          </a>
           <Link to="/contact" className="nav-link">
             Contact
           </Link>
         </div>
       </nav>
-
+<div className="scroll-snap-container">
       <section ref={(el) => (sections.current[0] = el)} className="section logo-section">
         <div className="container">
           <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -196,9 +199,20 @@ export default function NewLandingPage() {
               "Human Resources and Recruitment",
               "Professional Services",
             ].map((industry, index) => (
-              <div key={industry} className="industry-item">
+              <motion.div
+                key={industry}
+                className="industry-item"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+              >
                 {industry}
-              </div>
+                </motion.div>
             ))}
           </div>
           <div className="button-container-left">
@@ -241,6 +255,18 @@ export default function NewLandingPage() {
                     name: "Atlassian",
                     logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Atlassian-Logo-Photoroom-XttJpWKD7H3hb1zjgge74nAjyXbXmY.png",
                   },
+                  {
+                    name: "Amazon Web Services",
+                    logo: AWSLogo,
+                  },
+                  {
+                    name: "Defense Information Systems Agency",
+                    logo: DISALogo,
+                  },
+                  {
+                    name: "Virginia Apex Accelerator",
+                    logo: VAALogo,
+                  },
                 ]
                   .concat([
                     {
@@ -258,6 +284,18 @@ export default function NewLandingPage() {
                     {
                       name: "Atlassian",
                       logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Atlassian-Logo-Photoroom-XttJpWKD7H3hb1zjgge74nAjyXbXmY.png",
+                    },
+                    {
+                      name: "Amazon Web Services",
+                      logo: AWSLogo,
+                    },
+                    {
+                      name: "Defense Information Systems Agency",
+                      logo: DISALogo,
+                    },
+                    {
+                      name: "Virginia Apex Accelerator",
+                      logo: VAALogo,
                     },
                   ])
                   .map((partner, index) => (
@@ -349,6 +387,8 @@ export default function NewLandingPage() {
       <section ref={(el) => (sections.current[5] = el)} className="section">
         <ContactForm />
       </section>
+      </div>
+      <Footer />
     </div>
   )
 }

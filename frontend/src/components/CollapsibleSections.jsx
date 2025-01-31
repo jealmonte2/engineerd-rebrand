@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 
 const sections = [
   {
@@ -115,7 +116,17 @@ function CollapsibleSections() {
       </p>
 
       {sections.map((section, index) => (
-        <React.Fragment key={section.id}>
+        <motion.div
+          key={section.id}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+            delay: index * 0.2,
+            ease: "easeOut"
+          }}
+        >
           <div
             className="accordion-item"
             style={{
@@ -149,11 +160,10 @@ function CollapsibleSections() {
             </div>
           </div>
           {(index === 0 || index === 1) && <div style={dividerStyle}></div>}
-        </React.Fragment>
+        </motion.div>
       ))}
     </div>
   )
 }
 
 export default CollapsibleSections
-

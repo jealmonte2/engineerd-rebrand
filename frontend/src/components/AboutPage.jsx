@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import "../styles/AboutPage.css"
 import TeamPic from "../assets/EngineeRDTeam.png"
 import { useEffect, useRef } from "react"
 import "../styles/LavaLamp.css"
 import ContactForm from "./ContactForm"
+import Footer from "./Footer"
 
 export default function AboutPage() {
   const sections = useRef([])
@@ -107,23 +109,40 @@ export default function AboutPage() {
           <Link to="/about" className="nav-link">
             About
           </Link>
-          <a href="#services" className="nav-link">
-            Services
-          </a>
           <Link to="/contact" className="nav-link">
             Contact
           </Link>
         </div>
       </nav>
 
-      <section ref={(el) => (sections.current[0] = el)} className="about-section">
-        <div className="about-container">
-          <h1 className="about-title">Crafting Tailored Solutions to Empower Your Business</h1>
-          <div className="about-image-container">
-            <img src={TeamPic} alt="EngineeRD Team" className="about-hero-image" />
+      <AnimatePresence>
+        <motion.section
+          ref={(el) => (sections.current[0] = el)}
+          className="about-section"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="about-container">
+            <motion.h1 
+              className="about-title"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              Crafting Tailored Solutions to Empower Your Business
+            </motion.h1>
+            <motion.div 
+              className="about-image-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <img src={TeamPic} alt="EngineeRD Team" className="about-hero-image" />
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </motion.section>
+      </AnimatePresence>
 
       <section ref={(el) => (sections.current[1] = el)} className="about-section">
         <div className="about-container">
@@ -149,22 +168,28 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="stats-container">
-              <div className="stat-item">
-                <h3>+4 years</h3>
-                <p>of experience</p>
-              </div>
-              <div className="stat-item">
-                <h3>+50</h3>
-                <p>Successful projects</p>
-              </div>
-              <div className="stat-item">
-                <h3>+30</h3>
-                <p>Satisfied clients</p>
-              </div>
-              <div className="stat-item">
-                <h3>+10</h3>
-                <p>Industry partners</p>
-              </div>
+              {[
+                { number: "+4", text: "years of experience" },
+                { number: "+50", text: "Successful projects" },
+                { number: "+30", text: "Satisfied clients" },
+                { number: "+10", text: "Industry partners" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="stat-item"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.2,
+                    ease: "easeOut"
+                  }}
+                >
+                  <h3>{stat.number}</h3>
+                  <p>{stat.text}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -174,29 +199,29 @@ export default function AboutPage() {
         <div className="about-container">
           <h2 className="section-title">Our Team</h2>
           <div className="team-grid">
-          {[
-            { name: "Rehan Mahmood", title: "Founder & CEO", image: "RehanHeadshot" },
-            { name: "Allen Salazar", title: "SVP Operations | Product", image: "AllenHeadshot" },
-            { name: "Alex Wasiewlewski", title: "Solutions Engineer", image: "AlexHeadshot" },
-            { name: "Theodor Axelson", title: "Data Solutions Engineer", image: "TheoHeadshot" },
-            { name: "Sergio Saenz", title: "AI/ML Lead Software Engineer", image: "SergioHeadshot" },
-            { name: "Dr. Brian Ngac", title: "Principal Investigator Advisor", image: "BrianHeadshot" },
-            { name: "Tiffany Ho", title: "Data Analyst XRM Dev.", image: "TiffannyHeadshot" },
-            { name: "Sayeed Akhtar", title: "Business Dev.\nCompliance", image: "SayeedHeadshot" },
-            { name: "Sara Mirza", title: "Automation Engineer", image: "SaraHeadshot" },
-            { name: "Rohan Pinto", title: "User Experience User Interface", image: "RohanHeadshot" },
+            {[
+              { name: "Rehan Mahmood", title: "Founder & CEO", image: "RehanHeadshot" },
+              { name: "Allen Salazar", title: "SVP Operations | Product", image: "AllenHeadshot" },
+              { name: "Alex Wasiewlewski", title: "Solutions Engineer", image: "AlexHeadshot" },
+              { name: "Theodor Axelson", title: "Data Solutions Engineer", image: "TheoHeadshot" },
+              { name: "Sergio Saenz", title: "AI/ML Lead Software Engineer", image: "SergioHeadshot" },
+              { name: "Dr. Brian Ngac", title: "Principal Investigator Advisor", image: "BrianHeadshot" },
+              { name: "Tiffany Ho", title: "Data Analyst XRM Dev.", image: "TiffannyHeadshot" },
+              { name: "Sayeed Akhtar", title: "Business Dev.\nCompliance", image: "SayeedHeadshot" },
+              { name: "Sara Mirza", title: "Automation Engineer", image: "SaraHeadshot" },
+              { name: "Rohan Pinto", title: "User Experience User Interface", image: "RohanHeadshot" },
             ].map((member, index) => (
-            <div key={index} className="team-card">
+              <div key={index} className="team-card">
                 <div className="team-image-container">
-                <img
+                  <img
                     src={getHeadshotPath(member.image)}
                     alt={member.name}
                     className="team-image"
-                />
+                  />
                 </div>
                 <h3 className="team-name">{member.name}</h3>
                 <p className="team-title">{member.title}</p>
-            </div>
+              </div>
             ))}
           </div>
         </div>
@@ -204,32 +229,35 @@ export default function AboutPage() {
 
       <section ref={(el) => (sections.current[3] = el)} className="about-section">
         <div className="about-container">
-            <h2 className="section-title">Our Interns</h2>
-            <div className="team-grid">
+          <h2 className="section-title">Our Interns</h2>
+          <div className="team-grid">
             {[
-                { name: "Joshua Almonte", title: "Software Engineer", image: "JoshHeadshot" },
-                { name: "Hala Nakhlawi", title: "User Interface Graphic Designer", image: "HalaHeadshot" },
-                { name: "Venice Chan", title: "User Experience Researcher", image: "VeniceHeadshot" },
+              { name: "Joshua Almonte", title: "Software Engineer", image: "JoshHeadshot" },
+              { name: "Hala Nakhlawi", title: "User Interface Graphic Designer", image: "HalaHeadshot" },
+              { name: "Venice Chan", title: "User Experience Researcher", image: "VeniceHeadshot" },
             ].map((intern, index) => (
-                <div key={index} className="team-card">
+              <div key={index} className="team-card">
                 <div className="team-image-container">
-                    <img
+                  <img
                     src={getHeadshotPath(intern.image)}
                     alt={intern.name}
                     className="team-image"
-                    />
+                  />
                 </div>
                 <h3 className="team-name">{intern.name}</h3>
                 <p className="team-title">{intern.title}</p>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </div>
-        </section>
+      </section>
 
       <section ref={(el) => (sections.current[4] = el)} className="about-section contact-section">
         <ContactForm />
       </section>
+      <div className="footer-wrapper">
+        <Footer />
+      </div>
     </div>
   )
 }

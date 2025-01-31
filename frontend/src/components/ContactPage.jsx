@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import Footer from "./Footer"
+
 
 const inputStyle = {
     width: "100%",
@@ -75,25 +77,23 @@ const inputStyle = {
     return (
       <>
         <nav style={navStyle}>
-            <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-                <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
-                alt="EngineeRD Logo"
-                style={{ height: "1.75rem" }}
-                />
+          <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
+              alt="EngineeRD Logo"
+              style={{ height: "1.75rem" }}
+            />
+          </Link>
+          <div>
+            <Link to="/about" style={navLinkStyle}>
+              About
             </Link>
-            <div>
-                <a href="#about" style={navLinkStyle}>
-                About
-                </a>
-                <a href="#services" style={navLinkStyle}>
-                Services
-                </a>
-                <a href="#contact" style={navLinkStyle}>
-                Contact
-                </a>
-            </div>
-            </nav>
+            <Link to="/contact" style={navLinkStyle}>
+              Contact
+            </Link>
+          </div>
+        </nav>
+
         <section style={{ minHeight: "100vh", padding: "80px 0 30px 0", color: "white", backgroundColor: "#060c18" }}>
           <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 20px", marginTop: "30px" }}>
             <div style={{ marginBottom: "24px" }}>
@@ -259,6 +259,7 @@ const inputStyle = {
             </form>
           </div>
         </section>
+        <Footer />
       </>
     )
   }
