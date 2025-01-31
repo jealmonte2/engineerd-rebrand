@@ -4,6 +4,8 @@ import "../styles/LavaLamp.css"
 import CollapsibleSections from "./CollapsibleSections.jsx"
 import Testimonials from "./Testimonials"
 import ContactForm from "./ContactForm"
+import { ChevronDown } from "lucide-react"
+
 
 export default function NewLandingPage() {
   const sections = useRef([])
@@ -113,15 +115,17 @@ export default function NewLandingPage() {
       <div className="lava-overlay" />
 
       <nav className="nav">
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
-          alt="EngineeRD Logo"
-          className="nav-logo"
-        />
+        <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
+            alt="EngineeRD Logo"
+            className="nav-logo"
+          />
+        </Link>
         <div className="nav-links">
-          <a href="#about" className="nav-link">
+          <Link to="/about" className="nav-link">
             About
-          </a>
+          </Link>
           <a href="#services" className="nav-link">
             Services
           </a>
@@ -133,12 +137,23 @@ export default function NewLandingPage() {
 
       <section ref={(el) => (sections.current[0] = el)} className="section logo-section">
         <div className="container">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
-            alt="EngineeRD Logo Large"
-            className="logo-large"
-          />
-          <p>Think big. Transform data to wisdom.</p>
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LogoLightMode-B141XZ2n0nRFEI1R7z8RsHci69WlVd.png"
+              alt="EngineeRD Logo Large"
+              className="logo-large"
+            />
+            <p className="logo-slogan">THINK BIG. DREAM BIGGER. SAVE THE WORLD</p>
+          </div>
+          <div 
+            className="landing-chevron-container"
+            onClick={() => {
+              const nextSection = sections.current[1]
+              nextSection?.scrollIntoView({ behavior: "smooth" })
+            }}
+          >
+            <ChevronDown className="landing-chevron" size={32} />
+          </div>
         </div>
       </section>
 

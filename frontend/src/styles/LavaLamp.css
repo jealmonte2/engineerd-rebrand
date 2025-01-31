@@ -76,12 +76,31 @@ body {
 /* Logo Section */
 .logo-section {
   text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo-large {
   width: 30rem;
   max-width: 90%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.logo-slogan {
+  position: absolute;
+  bottom: -1px;
+  right: 28px;
+  width: 66.67%;
+  text-align: right;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.73rem;
+  letter-spacing: 0.01em;
+  font-weight: 200;
+  white-space: nowrap;
 }
 
 /* Content Section */
@@ -89,7 +108,8 @@ body {
   font-size: 22px;
   line-height: 1.6;
   margin: 0 auto;
-  text-align: center;
+  max-width: 800px;
+  text-align: left;
 }
 
 /* Industries Section */
@@ -143,7 +163,7 @@ body {
 
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 1.25rem;
 }
 
@@ -561,3 +581,28 @@ body {
   }
 }
 
+.landing-chevron-container {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  animation: bounce 2s infinite;
+  z-index: 10;
+}
+
+.landing-chevron {
+  color: white;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

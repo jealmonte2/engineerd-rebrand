@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom"
 import IntroAnimation from "./components/IntroAnimation"
 import LandingPage from "./components/LandingPage"
 import ContactPage from "./components/ContactPage"
+import AboutPage from "./components/AboutPage"
 import "@fontsource/poppins/500.css"
 import "@fontsource/poppins/300.css"
 import "@fontsource/poppins/200.css"
@@ -44,6 +45,7 @@ function App() {
             </AnimatePresence>
           }
         />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </div>
