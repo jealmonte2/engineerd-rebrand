@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
 import "../styles/LavaLamp.css"
 import CollapsibleSections from "./CollapsibleSections.jsx"
 import Testimonials from "./Testimonials"
+import ContactForm from "./ContactForm"
 
 export default function NewLandingPage() {
   const sections = useRef([])
@@ -123,9 +125,9 @@ export default function NewLandingPage() {
           <a href="#services" className="nav-link">
             Services
           </a>
-          <a href="#contact" className="nav-link">
+          <Link to="/contact" className="nav-link">
             Contact
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -149,7 +151,7 @@ export default function NewLandingPage() {
               implement Microsoft solutions for better efficiency and adaptability.
             </p>
             <div className="button-container">
-              <button className="action-button">
+              <Link to="/contact" className="action-button">
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-r1Hia5zeuN6XtDh5fgLFvTsgn3NBhp.png"
                   alt="Let's Connect"
@@ -160,7 +162,7 @@ export default function NewLandingPage() {
                   alt="Let's Connect"
                   className="hover-image"
                 />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -328,6 +330,9 @@ export default function NewLandingPage() {
             <Testimonials />
           </div>
         </div>
+      </section>
+      <section ref={(el) => (sections.current[5] = el)} className="section">
+        <ContactForm />
       </section>
     </div>
   )

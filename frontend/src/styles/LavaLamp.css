@@ -157,6 +157,11 @@ body {
 .partners-section {
   padding: 1rem 0;
   margin-bottom: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
 }
 
 .partners-title {
@@ -166,26 +171,20 @@ body {
 }
 
 .partners-scroll {
-  overflow-x: auto;
+  overflow: hidden;
   white-space: nowrap;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   margin: 0 auto;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  max-width: 80%;
-}
-
-.partners-scroll::-webkit-scrollbar {
-  display: none;
+  width: 100%;
 }
 
 .partners-container {
   display: inline-flex;
   gap: 3rem;
   animation: scroll 80s linear infinite;
-  width: fit-content;
+  width: max-content;
 }
 
 .partner-item {
@@ -460,15 +459,17 @@ body {
 /* Accordion Styles */
 .accordion-section {
   margin-top: 1rem;
-  max-width: 80%;
+  width: 100%;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0;
 }
 
 .accordion-item {
   background-color: transparent;
   border: none;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .accordion-button {
@@ -476,12 +477,13 @@ body {
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.25rem;
   font-weight: 600;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   text-align: right;
   width: 100%;
   border: none;
   cursor: pointer;
   transition: color 0.3s ease;
+  margin-bottom: 0.1rem;
 }
 
 .accordion-button[aria-expanded="true"] {
@@ -492,7 +494,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -502,7 +504,7 @@ body {
 .accordion-content.expanded {
   max-height: 1000px;
   opacity: 1;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
 }
 
 .topic-list {
@@ -540,6 +542,13 @@ body {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.accordion-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0.25rem 0;
 }
 
 @media (max-width: 768px) {
